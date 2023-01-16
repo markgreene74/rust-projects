@@ -24,23 +24,35 @@ impl Player {
         }
     }
 
-    // fn won(mut self) {
-    //     self.wins += 1;
-    // }
+    fn won(mut self) {
+        self.wins += 1;
+    }
 }
 
-// fn winner(p1: Player, p2: Player) -> () {
-//     // pick the winner and add +1 point
-//     match p1.play {
-//         String::from("rock") => println!("p1 wins"), //p1.won(),
-//         // "paper" => (),
-//         // "scissors" =>  (),
-//         // "lizard" => (),
-//         // "spock" => (),
-//         // (_, _) => p2.won(),
-//         _ => println!("Ain't special"),
-//     };
-// }
+fn winner(p1: Player, p2: Player) -> () {
+    // draw, no points assigned to either palyer
+    if p1.play == p2.play {
+        println!("draw");
+        return ()
+    }
+
+    // pick the winner and add +1 point
+    match (p1.play.as_str(), p2.play.as_str()) {
+        // p1 rock -> crushes lizard, crushes scissors
+        ("rock", "lizard") | ("rock", "scissors") => { println!("p1 wins"); p1.won() },
+        // p1 paper -> covers rock, disproves spock
+        ("paper", "rock") | ("paper", "spock") => { println!("p1 wins"); p1.won() },
+        // p1 scissors -> decapitates lizard, cuts paper
+        ("scissors", "lizard") | ("scissors", "paper") => { println!("p1 wins"); p1.won() },
+        // p1 lizard -> eats paper, poisons spock
+        ("lizard", "paper") | ("lizard", "spock") => { println!("p1 wins"); p1.won() },
+        // p1 spock -> vaporises rock, smashes scissors
+        ("spock", "rock") | ("spock", "scissors") => { println!("p1 wins"); p1.won() },
+        // all the other cases p2 wins
+        (_, _) => { println!("p2 wins"); p2.won() },
+        // _ => println!("Ain't special"),
+    };
+}
 
 fn main() {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -51,10 +63,9 @@ fn main() {
     let player1 = Player::new("Player 1".to_string());
     let player2 = Player::new("Player 2".to_string());
 
-    // this also works
-    // let player1 = Player { name: "Player 1".to_string(), play: "rock".to_string(), wins: 1 };
-    // let player2 = Player { name: "Player 2".to_string(), play: "scissors".to_string(), wins: 0 };
 
-    println!("1: {}, {:?}, {}", player1.name, player1.play, player1.wins);
-    println!("2: {}, {:?}, {}", player2.name, player2.play, player2.wins);
+    println!("1: {}, {}, {}", player1.name, player1.play, player1.wins);
+    println!("2: {}, {}, {}", player2.name, player2.play, player2.wins);
+    winner(player1, player2);
+    // println!("p1: {}, p2: {}", player1.wins, player2.wins);
 }
