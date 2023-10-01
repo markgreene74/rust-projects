@@ -33,23 +33,41 @@ fn winner(p1: Player, p2: Player) -> () {
     // draw, no points assigned to either palyer
     if p1.play == p2.play {
         println!("draw");
-        return ()
+        return ();
     }
 
     // pick the winner and add +1 point
     match (p1.play.as_str(), p2.play.as_str()) {
         // p1 rock -> crushes lizard, crushes scissors
-        ("rock", "lizard") | ("rock", "scissors") => { println!("p1 wins"); p1.won() },
+        ("rock", "lizard") | ("rock", "scissors") => {
+            println!("p1 wins");
+            p1.won()
+        }
         // p1 paper -> covers rock, disproves spock
-        ("paper", "rock") | ("paper", "spock") => { println!("p1 wins"); p1.won() },
+        ("paper", "rock") | ("paper", "spock") => {
+            println!("p1 wins");
+            p1.won()
+        }
         // p1 scissors -> decapitates lizard, cuts paper
-        ("scissors", "lizard") | ("scissors", "paper") => { println!("p1 wins"); p1.won() },
+        ("scissors", "lizard") | ("scissors", "paper") => {
+            println!("p1 wins");
+            p1.won()
+        }
         // p1 lizard -> eats paper, poisons spock
-        ("lizard", "paper") | ("lizard", "spock") => { println!("p1 wins"); p1.won() },
+        ("lizard", "paper") | ("lizard", "spock") => {
+            println!("p1 wins");
+            p1.won()
+        }
         // p1 spock -> vaporises rock, smashes scissors
-        ("spock", "rock") | ("spock", "scissors") => { println!("p1 wins"); p1.won() },
+        ("spock", "rock") | ("spock", "scissors") => {
+            println!("p1 wins");
+            p1.won()
+        }
         // all the other cases p2 wins
-        (_, _) => { println!("p2 wins"); p2.won() },
+        (_, _) => {
+            println!("p2 wins");
+            p2.won()
+        }
         // _ => println!("Ain't special"),
     };
 }
@@ -62,7 +80,6 @@ fn main() {
     // initialise the players
     let player1 = Player::new("Player 1".to_string());
     let player2 = Player::new("Player 2".to_string());
-
 
     println!("1: {}, {}, {}", player1.name, player1.play, player1.wins);
     println!("2: {}, {}, {}", player2.name, player2.play, player2.wins);
