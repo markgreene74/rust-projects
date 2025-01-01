@@ -23,6 +23,12 @@ jobs:
   formatting:
     name: cargo fmt
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project_dir: [api-reader, rock-paper-scissors-lizard-spock]
+    defaults:
+      run:
+        working-directory: ${{ matrix.project_dir }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -34,10 +40,14 @@ jobs:
   clippy:
     name: clippy
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project_dir: [api-reader, rock-paper-scissors-lizard-spock]
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: clippy
       - name: Linting
+        working-directory: ${{ matrix.project_dir }}
         run: cargo clippy -- -D warnings
