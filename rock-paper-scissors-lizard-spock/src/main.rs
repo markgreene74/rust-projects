@@ -1,6 +1,6 @@
 use rand::Rng;
 
-const PLAYS: [&'static str; 5] = ["rock", "paper", "scissors", "lizard", "spock"];
+const PLAYS: [&str; 5] = ["rock", "paper", "scissors", "lizard", "spock"];
 
 struct Player {
     name: String,
@@ -29,11 +29,11 @@ impl Player {
     }
 }
 
-fn winner(p1: Player, p2: Player) -> () {
+fn winner(p1: Player, p2: Player) {
     // draw, no points assigned to either palyer
     if p1.play == p2.play {
         println!("draw");
-        return ();
+        return;
     }
 
     // pick the winner and add +1 point
@@ -68,7 +68,6 @@ fn winner(p1: Player, p2: Player) -> () {
             println!("p2 wins");
             p2.won()
         }
-        // _ => println!("Ain't special"),
     };
 }
 
